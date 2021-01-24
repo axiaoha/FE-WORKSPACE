@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="result">12345</div>
+  <script>
+    // --------------------Worker介绍--------------------
+    // // 新建一个 Worker 线程
+    // var worker = new Worker('./work.js');
+
+    // // 主线程通过worker.onmessage指定监听函数，接收子线程发回来的消息。
+    // worker.onmessage = function (event) {
+    //     console.log('Received message ' + event.data);
+    //     doSomething();
+    // }
+    // function doSomething() {
+    //     // 执行任务
+    //     worker.postMessage('Work done!');
+    // }
+
+    // // 主线程可以监听 Worker 是否发生错误。如果发生错误，Worker 会触发主线程的error事件
+    // worker.onerror(function (e) {
+    //     console.log([
+    //         'ERROR: Line ', e.lineno, ' in ', e.filename, ': ', e.message
+    //     ].join(''));
+    // });
+    // // 或者
+    // worker.addEventListener('error', function (event) {
+    //     // ...
+    // });
+
+    // // Worker 完成任务以后，主线程就可以把它关掉。
+    // // worker.terminate();
+    var worker = new Worker('worker.js');
+    worker.onmessage = function (event) {
+      console.log('index e.data.name',event.data.name);
+      this.postMessage({name:'主线程'})
+      document.getElementById('result').textContent = event.data.name;
+      // document.getElementById('result').textContent = event.data;
+    };
+    // worker.postMessage({name:'主线程'})
+
+
+    // 前提：用http-server启动本地服务器，因为worker的使用有
+    // 文件限制，为了安全，worker线程无法读取本地文件，它所加载的脚本必须来自网络，且需要与主线程的脚本同源，所以需要启动一个本地的服务
+    // https://www.cnblogs.com/xxiaonian/p/9314471.html
+    // npm install http-server -g 
+    // 出现cmd窗口，输入命令：hs -o   （等同于  http-server -open）  本地服务器就启动起来了，默认端口为8080。
+  </script>
+</body>
+</html>

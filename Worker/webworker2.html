@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="result">12345</div>
+    <script>
+        function createWorker(f) {
+            var blob = new Blob(['(' + f.toString() + ')()']);
+            var url = window.URL.createObjectURL(blob);
+            var worker = new Worker(url);
+            return worker;
+        }
+
+        var pollingWorker = createWorker(function(e) {
+            self.postMessage({
+                name: "子线程"
+            })
+            self.onmessage = function(e) {
+                console.log('子线程console', e.data.name);
+            }
+        });
+
+        pollingWorker.onmessage = function(e) {
+            console.log('主线程console', event.data.name);
+            this.postMessage({
+                name: '主线程'
+            })
+            document.getElementById('result').textContent = event.data.name;
+        }
+    </script>
+</body>
+
+</html>
