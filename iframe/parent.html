@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>父窗口</title>
+    <link rel="stylesheet" href="parent.css">
+</head>
+
+<body>
+    <div class="parent">
+        <div class="header"><button id="btn">1234</button></div>
+        <div class="aside"></div>
+        <iframe src="http://localhost:8004/ams/product-management" width="100%" height="100%" frameborder="0" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups-to-escape-sandbox" id="iframe" name="ams">
+            <p>嵌入页面</p>
+        </iframe>
+    </div>
+</body>
+<script>
+    document.getElementById("btn").addEventListener("click", function() {
+        console.log("1234");
+    });
+    let win = window.frames.ams
+    console.log("win", win);
+</script>
+
+</html>
