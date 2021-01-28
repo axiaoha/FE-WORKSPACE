@@ -1,68 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>父窗口</title>
     <link rel="stylesheet" href="parent.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="parent">
-      <div class="header"><button id="btn">1234</button></div>
-      <div class="aside"></div>
-      <iframe
-        src="http://www.hergun.com:8001/"
-        width="100%"
-        height="100%"
-        frameborder="0"
-        allowfullscreen
-        sandbox="allow-scripts allow-same-origin allow-popups-to-escape-sandbox"
-        id="iframe"
-        name="ams"
-      >
-        <p>嵌入页面</p>
-      </iframe>
+        <div class="header"><button id="btn">1234</button></div>
+        <div class="aside"></div>
     </div>
-  </body>
-  <script>
-    document.getElementById("btn").addEventListener("click", function () {
-      //   console.log("1234");
-      iframe.contentWindow.postMessage(
-        `{"path": "/ams/product-management","loginStatus": "valid"}`,
-        "*"
-      );
+    <iframe src="http://localhost:8004/ams/product-management?host=http://10.190.0.22:9600" width="100%" height="100%" frameborder="0" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups-to-escape-sandbox" id="iframe" name="ams">
+    <p>嵌入页面</p>
+  </iframe>
+</body>
+<script>
+    document.getElementById("btn").addEventListener("click", function() {
+        //   console.log("1234");
+        iframe.contentWindow.postMessage(
+            `${JSON.stringify({
+            loginStatus: "valid",
+            showDialogBox: true,
+            slideFold: false,
+            path: "/ams/product-management",
+            loginInfoData:{
+                body:{
+                    userId:"1234556",
+                    sysToken:"sdkjfergjkfherfhelkrfjel",
+                    test:"test字段"
+                }
+            }
+        })}`,
+            "*"
+        );
     });
-    console.log(
-      JSON.stringify({
-        loginStatus: "valid",
-        showDialogBox: true,
-        dialog: {
-          boxType: "message",
-          data: {
-            type: "success",
-            message: "恭喜",
-          },
-        },
-      })
-    );
-    let setIframe = function () {
-      let data = "test";
-      console.log("iframe", window, iframe.contentWindow);
-      if (iframe) {
-        console.log("1111");
-        iframe.contentWindow.postMessage("hello", "*");
-        return;
-      } else {
-        setTimeout(() => {
-          this.setIframe();
-        }, 200);
-      }
+    let setIframe = function() {
+        let data = "test";
+        console.log("iframe", window, iframe.contentWindow);
+        if (iframe) {
+            console.log("1111");
+            iframe.contentWindow.postMessage("hello", "*");
+            return;
+        } else {
+            setTimeout(() => {
+                this.setIframe();
+            }, 200);
+        }
     };
     setIframe();
-    window.addEventListener("message", function (e) {
-      console.log("parent message");
-      console.log("e", e.data);
+    window.addEventListener("message", function(e) {
+        console.log("parent message");
+        console.log("e", e.data);
     });
-  </script>
+</script>
+
 </html>

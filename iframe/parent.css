@@ -16,34 +16,22 @@
     width: 100%;
     background-color: #2B3247;
     color: #fff;
-    z-index: 0;
 }
 
 .aside {
     position: fixed;
     top: 90px;
     left: 0;
-    width: 140px;
+    width: 220px;
     height: calc(100% - 90px);
     background-color: #202638;
     color: #fff;
-    z-index: 0;
 }
 
-
-/* .content {
-    position: relative;
-    left: 220px;
-    width: calc(100% - 220px);
-    height: calc(100% - 90px);
-
-    position: absolute;
+iframe {
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-} */
-
-#iframe {
-    z-index: 1000;
+    height: 100vh;
+    width: 100vw;
 }
