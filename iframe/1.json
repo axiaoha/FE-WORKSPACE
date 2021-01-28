@@ -1,0 +1,11 @@
+{
+  "loginStatus": "valid",
+  "showDialogBox": true,
+  "dialog": {
+    "boxType": "message",
+    "data": {
+      "type": "success",
+      "message": "恭喜"
+    }
+  }
+}
