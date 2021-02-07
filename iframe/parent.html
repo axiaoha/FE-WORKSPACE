@@ -12,10 +12,10 @@
     <div class="parent">
         <div class="header"><button id="btn">1234</button></div>
         <div class="aside"></div>
+        <iframe src="http://localhost:8004/ams/product-management?host=http://10.190.0.22:9600" frameborder="0" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups-to-escape-sandbox" id="iframe" name="ams">
+        <p>嵌入页面</p>
+        </iframe>
     </div>
-    <iframe src="http://localhost:8004/ams/product-management?host=http://10.190.0.22:9600" width="100%" height="100%" frameborder="0" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups-to-escape-sandbox" id="iframe" name="ams">
-    <p>嵌入页面</p>
-  </iframe>
 </body>
 <script>
     document.getElementById("btn").addEventListener("click", function() {
@@ -24,7 +24,7 @@
             `${JSON.stringify({
             loginStatus: "valid",
             showDialogBox: true,
-            slideFold: false,
+            slideFold: true,
             path: "/ams/product-management",
             loginInfoData:{
                 body:{
